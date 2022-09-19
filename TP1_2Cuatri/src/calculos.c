@@ -21,11 +21,11 @@ void CalcularPromedioConfederaciones(int* contadorUefa, int* contadorConmebol, i
 	*promedioCaf = (*contadorCaf / contadorJugadoresTotales)*100;
 }
 
-void CalcularCostosMantenimiento(float* costoHospedaje, float* costoComida, float* costoTransporte, float* promedioUefa, float* costoDeMantenimientoTotal, float* aumento, float* costoDeMantenimientoBruto)
+void CalcularCostosMantenimiento(float* costoHospedaje, float* costoComida, float* costoTransporte, float* promedioUefa, float* costoDeMantenimientoTotal, float* aumento, float* costoDeMantenimientoBruto, float* promedioConmebol, float* promedioConcacaf, float* promedioAfc, float* promedioOfc, float* promedioCaf)
 {
 	*costoDeMantenimientoBruto = *costoHospedaje + *costoComida + *costoTransporte;
 
-	if(*promedioUefa > 50)
+	if(*promedioUefa > *promedioConmebol && *promedioUefa > *promedioConcacaf && *promedioUefa > *promedioAfc && *promedioUefa > *promedioOfc && *promedioUefa > *promedioCaf)
 	{
 		*aumento = (*costoDeMantenimientoBruto/ 100) * 35;
 		*costoDeMantenimientoTotal = *costoDeMantenimientoBruto + *aumento;
@@ -35,9 +35,8 @@ void CalcularCostosMantenimiento(float* costoHospedaje, float* costoComida, floa
 void RealizarCalculos(float* costoHospedaje, float* costoComida, float* costoTransporte, int* contadorUefa, int* contadorConmebol, int* contadorConcacaf, int* contadorAfc, int* contadorOfc, int* contadorCaf, float* promedioUefa, float* promedioConmebol, float* promedioConcacaf, float* promedioAfc, float* promedioOfc, float* promedioCaf, float* costoDeMantenimientoTotal, float* aumento, float* costoDeMantenimientoBruto)
 {
 	CalcularPromedioConfederaciones(contadorUefa, contadorConmebol, contadorConcacaf, contadorAfc, contadorOfc, contadorCaf, promedioUefa, promedioConmebol, promedioConcacaf, promedioAfc, promedioOfc, promedioCaf);
-	CalcularCostosMantenimiento(costoHospedaje, costoComida, costoTransporte, promedioUefa, costoDeMantenimientoTotal, aumento, costoDeMantenimientoBruto);
+	CalcularCostosMantenimiento(costoHospedaje, costoComida, costoTransporte, promedioUefa, costoDeMantenimientoTotal, aumento, costoDeMantenimientoBruto, promedioConmebol, promedioConcacaf, promedioAfc, promedioOfc, promedioCaf);
 }
-
 void InformarResultados(float* promedioUefa, float* promedioConmebol, float* promedioConcacaf, float* promedioAfc, float* promedioOfc, float* promedioCaf,float* costoDeMantenimientoTotal, float* aumento,float* costoDeMantenimientoBruto)
 {
 	printf("\n      Informar todos los resultados\n\n"
@@ -50,11 +49,10 @@ void InformarResultados(float* promedioUefa, float* promedioConmebol, float* pro
 
 	printf("El costo de mantenimiento es de $%.2f", *costoDeMantenimientoBruto);
 
-	if(*promedioUefa > 50)
+	if(*promedioUefa > *promedioConmebol && *promedioUefa > *promedioConcacaf && *promedioUefa > *promedioAfc && *promedioUefa > *promedioOfc && *promedioUefa > *promedioCaf)
 	{
 		printf(", recibio un aumento de $%.2f, y ahora es de $%.2f", *aumento, *costoDeMantenimientoTotal);
 	}
-
 
 }
 

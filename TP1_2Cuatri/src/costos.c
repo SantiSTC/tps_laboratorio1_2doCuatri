@@ -23,7 +23,7 @@ int PedirCostos(float* costoHospedaje, float* costoComida, float* costoTransport
 	opcionElegida = atoi(opcion);
 	while(validar == 0 || (opcionElegida > 3 || opcionElegida < 1))
 	{
-		validar = getStringNumeros("ERROR, Ingrese una opción: ", opcion);
+		validar = getStringNumeros("ERROR, Ingrese una opción valida: ", opcion);
 		opcionElegida = atoi(opcion);
 	}
 

@@ -34,8 +34,7 @@ void CalcularPromedioConfederaciones(int* contadorUefa, int* contadorConmebol, i
 /// @param costoDeMantenimientoTotal 	Recibe un puntero al costo de mantenimiento con el aumento aplicado
 /// @param aumento		Recibe un puntero al aumento que se aplica al costo de mantenimiento bruto
 /// @param costoDeMantenimientoBruto		Recibe un puntero al costo de mantenimiento en bruto
-void CalcularCostosMantenimiento(float* costoHospedaje, float* costoComida, float* costoTransporte, float* promedioUefa, float* costoDeMantenimientoTotal, float* aumento,float* costoDeMantenimientoBruto);
-
+void CalcularCostosMantenimiento(float* costoHospedaje, float* costoComida, float* costoTransporte, float* promedioUefa, float* costoDeMantenimientoTotal, float* aumento, float* costoDeMantenimientoBruto, float* promedioConmebol, float* promedioConcacaf, float* promedioAfc, float* promedioOfc, float* promedioCaf);
 /// @brief Realiza los calculos de gasto de mantenimiento y el porcentaje de jugadores por confederacion
 /// @param costoHospedaje		Recibe un puntero a costo de hospedaje
 /// @param costoComida		Recibe un puntero a costo de comida

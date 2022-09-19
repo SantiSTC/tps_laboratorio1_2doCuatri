@@ -32,7 +32,7 @@ void MenuPrincipal(float* costoHospedaje, float* costoComida, float* costoTransp
 /// @param contadorDefensores		Recibe un puntero al contador defensores
 /// @param contadorMediocampistas		Recibe un puntero al contador mediocampistas
 /// @param contadorDelanteros		Recibe un puntero al contador delanteros
-/// @return
+/// @return Retorna el numero elegido por el usuario.
 int ElegirOpcion(float* costoHospedaje, float* costoComida, float* costoTransporte, int* contadorArqueros, int* contadorDefensores, int* contadorMediocampistas, int* contadorDelanteros);
 
 #endif /* MENU_H_ */

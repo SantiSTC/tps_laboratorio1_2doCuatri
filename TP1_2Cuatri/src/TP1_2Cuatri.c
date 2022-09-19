@@ -3,7 +3,7 @@
  Name        : TP1_2Cuatri.c
  Author      : Santiago Iannello
  Version     : 2
- Copyright   : Your copyright notice
+ Copyright   :
  Description : Hello World in C, Ansi-style
  ============================================================================
  */
