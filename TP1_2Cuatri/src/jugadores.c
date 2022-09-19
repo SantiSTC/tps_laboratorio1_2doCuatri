@@ -149,7 +149,7 @@ int PedirJugador(int* numeroCamiseta, int* contadorArqueros, int* contadorDefens
 	}
 	else
 	{
-		printf("\nSe ha alcanzado el maximo de 22 jugadores\n");
+		printf("\nSe ha alcanzado el maximo de 22 jugadores.\n");
 	}
 
 	return retorno;

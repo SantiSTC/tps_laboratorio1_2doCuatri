@@ -12,7 +12,6 @@ void CalcularPromedioConfederaciones(int* contadorUefa, int* contadorConmebol, i
 	float contadorJugadoresTotales;
 
 	contadorJugadoresTotales = *contadorUefa + *contadorConmebol + *contadorConcacaf + *contadorAfc + *contadorOfc + *contadorCaf;
-//SOY UN PUTO GENIO
 
 	*promedioUefa = (*contadorUefa / contadorJugadoresTotales)*100;
 	*promedioConmebol = (*contadorConmebol / contadorJugadoresTotales)*100;

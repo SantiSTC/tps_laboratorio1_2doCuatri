@@ -13,23 +13,23 @@
 #include <string.h>
 #include "utn.h"
 
-/// @brief
-/// @param costoHospedaje
-/// @param costoComida
-/// @param costoTransporte
+/// @brief Pide todos los costos de mantenimiento.
+/// @param costoHospedaje		Recibe un puntero a costo de hospedaje.
+/// @param costoComida		Recibe un puntero a costo de comida.
+/// @param costoTransporte		Recibe un puntero a costo de transporte.
 /// @return
 int PedirCostos(float* costoHospedaje, float* costoComida, float* costoTransporte);
 
-/// @brief
-/// @param costoHospedaje
+/// @brief Permite al usuario ingresar el costo de hospedaje.
+/// @param costoHospedaje		Recibe un puntero a costo de hospedaje.
 void PedirCostoHospedaje(float* costoHospedaje);
 
-/// @brief
-/// @param costoComida
+/// @brief Permite al usuario ingresar el costo de comida.
+/// @param costoComida		Recibe un puntero a costo de comida.
 void PedirCostoComida(float* costoComida);
 
-/// @brief
-/// @param costoTransporte
+/// @brief Permite al usuario ingresar el costo de transporte.
+/// @param costoTransporte		Recibe un puntero a costo de transporte.
 void PedirCostoTransporte(float* costoTransporte);
 
 #endif /* COSTOS_H_ */
