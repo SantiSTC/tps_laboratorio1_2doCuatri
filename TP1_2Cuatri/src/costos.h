@@ -17,7 +17,7 @@
 /// @param costoHospedaje		Recibe un puntero a costo de hospedaje.
 /// @param costoComida		Recibe un puntero a costo de comida.
 /// @param costoTransporte		Recibe un puntero a costo de transporte.
-/// @return
+/// @return Retorna 1 si el costo se ingreso correctamente, 0 si no pudo hacerse
 int PedirCostos(float* costoHospedaje, float* costoComida, float* costoTransporte);
 
 /// @brief Permite al usuario ingresar el costo de hospedaje.
