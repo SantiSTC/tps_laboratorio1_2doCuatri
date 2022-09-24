@@ -57,7 +57,7 @@ void PedirCostoHospedaje(float* costoHospedaje)
 		validar = getStringNumerosFlotantes("\nIngrese el costo de hospedaje: ", costoHospedajeAux);
 	}
 
-	*costoHospedaje += atof(costoHospedajeAux);
+	*costoHospedaje = atof(costoHospedajeAux);
 
 }
 
@@ -72,7 +72,7 @@ void PedirCostoComida(float* costoComida)
 		validar = getStringNumerosFlotantes("\nIngrese el costo de comida: ", costoComidaAux);
 	}
 
-	*costoComida += atof(costoComidaAux);
+	*costoComida = atof(costoComidaAux);
 
 }
 
@@ -87,7 +87,7 @@ void PedirCostoTransporte(float* costoTransporte)
 		validar = getStringNumerosFlotantes("\nIngrese el costo de transporte: ", costoTransporteAux);
 	}
 
-	*costoTransporte += atof(costoTransporteAux);
+	*costoTransporte = atof(costoTransporteAux);
 
 }
 
