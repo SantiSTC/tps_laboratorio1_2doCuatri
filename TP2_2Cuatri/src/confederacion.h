@@ -8,6 +8,8 @@
 #ifndef CONFEDERACION_H_
 #define CONFEDERACION_H_
 
+#include "inputs.h"
+
 typedef struct{
 	int id;
 	char nombre[50];
@@ -15,5 +17,7 @@ typedef struct{
 	int anioCreacion;
 }eConfederacion;
 
+void MostrarUnaConfederacion(eConfederacion unaConfederacion);
+void MostrarConfederaciones(eConfederacion listaConfederaciones[], int sizeConfederaciones);
 
 #endif /* CONFEDERACION_H_ */
