@@ -8,7 +8,7 @@
 #ifndef CONFEDERACION_H_
 #define CONFEDERACION_H_
 
-#include "inputs.h"
+#include "utn.h"
 
 typedef struct{
 	int id;

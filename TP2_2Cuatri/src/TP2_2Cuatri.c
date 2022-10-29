@@ -15,7 +15,7 @@
 #include "menu.h"
 
 #define T_C 6
-#define T_J 100
+#define T_J 7
 
 eConfederacion listaConfederaciones[T_C] = {{100, "CONMEBOL", "SUDAMERICA", 1916},
 										{101, "UEFA", "EUROPA", 1954},
@@ -24,20 +24,28 @@ eConfederacion listaConfederaciones[T_C] = {{100, "CONMEBOL", "SUDAMERICA", 1916
 										{104, "CONCACAF", "NORTE Y CENTRO AMERICA", 1961},
 										{105, "OFC", "OCEANIA", 1966}};
 
-eJugador listaJugadores[T_J];
+eJugador listaJugadores[T_J] = {{1, "Lionel Messi", "Mediocampista", 30, 100, 1000000, 2, OCUPADO},
+								{2, "Cristiano Ronaldo", "Delantero", 7, 101, 1500000, 4, OCUPADO},
+								{3, "Enzo Copetti", "Defensor", 10, 100, 30000, 4, OCUPADO},
+								{4, "Guido Herrera", "Arquero", 22, 102, 25000, 5, OCUPADO},
+								{5, "Wefwefif fewif", "Defensor", 4, 102, 3000, 10, OCUPADO},
+								{6, "Afbwef fweft", "Defensor", 6, 101, 2500, 8, OCUPADO},
+								{7, "Alberto Fernandez", "Arquero", 1, 102, 2500, 4, OCUPADO}};
 
 int main(void) {
 	setbuf(stdout, NULL);
 
 	int opcionElegida;
+	int opcionInformes;
 	int retorno;
-	int cantidadAltas = 0;
+	int cantidadAltas = 6;
 
 	InicializarJugador(listaJugadores, T_J);
 
 	do
 	{
-		opcionElegida = ElegirOpcion();
+		MenuPrincipal();
+		opcionElegida = ElegirOpcion(5,1);
 
 		switch(opcionElegida)
 		{
@@ -57,15 +65,15 @@ int main(void) {
 			case 2:
 				if(cantidadAltas != 0)
 				{
-					retorno = EliminarJugador(listaJugadores, T_J);
+					retorno = EliminarJugador(listaJugadores, T_J, listaConfederaciones, T_C);
 					if(retorno != 0)
 					{
-						printf("\n\n");
+						printf("\nSe ha eliminado exitosamente el jugador a la lista.\n");
 						cantidadAltas--;
 					}
 					else
 					{
-						printf("\n\n");
+						printf("\nNo se ha podido eliminar al jugador.\n");
 					}
 				}
 				else
@@ -77,14 +85,14 @@ int main(void) {
 
 				if(cantidadAltas != 0)
 				{
-					//retorno = ;
+					retorno = ModificarJugador(listaJugadores, T_J, listaConfederaciones, T_C);
 					if(retorno != 0)
 					{
-						printf("\n\n");
+						printf("\nSe ha modificado exitosamente el jugador a la lista.\n");
 					}
 					else
 					{
-						printf("\n\n");
+						printf("\nNo se ha podido modificar al jugador.\n");
 					}
 				}
 				else
@@ -93,28 +101,37 @@ int main(void) {
 				}
 			break;
 			case 4:
-				if(cantidadAltas != 0)
+				MenuInformes();
+				opcionInformes = ElegirOpcion(6, 1);
+
+				switch(opcionInformes)
 				{
-					//retorno = ;
-					if(retorno != 0)
-					{
-						printf("\n\n");
-					}
-					else
-					{
-						printf("\n\n");
-					}
+					case 1:
+						OrdenarJugadoresAlfabeticamente(listaJugadores, T_J, listaConfederaciones, T_C);
+					break;
+					case 2:
+						ListarConfederacionesConSusJugadores(listaJugadores, T_J, listaConfederaciones, T_C);
+					break;
+					case 3:
+						CalcularTotalYPromedioDeSalarios(listaJugadores, T_J, listaConfederaciones, T_C);
+					break;
+					case 4:
+						InformarConfederacionConMasAniosDeContrato(listaJugadores, T_J, listaConfederaciones, T_C);
+					break;
+					case 5:
+						InformarProcentajeDeJugadoresPorConfederacion(listaJugadores, T_J, listaConfederaciones, T_C);
+					break;
+					case 6:
+						InformarRegionConMasJugadores(listaJugadores, T_J, listaConfederaciones, T_C);
+					break;
 				}
-				else
-				{
-					printf("\nERROR - Se debera cargar al menos un jugador antes de ingresar a esta opcion.\n");
-				}
+
 			break;
 		}
 
 	}while(opcionElegida != 5);
 
-
+	printf("\n< Programa Finalizado >");
 
 	return 0;
 }

@@ -7,12 +7,19 @@
 
 #include "jugador.h"
 
-void MostrarUnJugador(eJugador unJugador)
+void MostrarUnJugador(eJugador unJugador, eConfederacion listaConfederaciones[], int sizeConfederaciones)
 {
-	printf("|%2d  | %-18s           | %16s | %11hu |%17.2f | %-13d | %15hu  |\n", unJugador.id, unJugador.nombre, unJugador.posicion, unJugador.numeroCamiseta, unJugador.salario, unJugador.idConfederacion, unJugador.aniosContrato);
+	for(int i=0; i<sizeConfederaciones; i++)
+	{
+		if(unJugador.idConfederacion == listaConfederaciones[i].id)
+		{
+			printf("|%2d  | %-18s           | %-16s | %-11hu |%-17.2f | %-13s | %15hu  |\n", unJugador.id, unJugador.nombre, unJugador.posicion, unJugador.numeroCamiseta, unJugador.salario, listaConfederaciones[i].nombre, unJugador.aniosContrato);
+
+		}
+	}
 }
 
-void MostrarListaJugadores(eJugador listaJugadores[], int sizeJugadores)
+void MostrarListaJugadores(eJugador listaJugadores[], int sizeJugadores, eConfederacion listaConfederaciones[], int sizeConfederacione)
 {
 	printf("============================================================================================================================\n"
 			"| ID |           NOMBRE             |     POSICION     | N° CAMISETA |      SUELDO      | CONFEDERACION | AÑOS DE CONTRATO |\n"
@@ -21,7 +28,7 @@ void MostrarListaJugadores(eJugador listaJugadores[], int sizeJugadores)
 	{
 		if(listaJugadores[i].isEmpty == OCUPADO)
 		{
-			MostrarUnJugador(listaJugadores[i]);
+			MostrarUnJugador(listaJugadores[i], listaConfederaciones, sizeConfederacione);
 		}
 	}
 
@@ -48,7 +55,7 @@ int ObtenerID()
 	return idAutoIncremental++;
 }
 
-void PedirNombre(char* mensaje, char* nombre)
+int PedirNombre(char* mensaje, char* nombre)
 {
 	char nombreAux[50];
 	int validar;
@@ -60,9 +67,11 @@ void PedirNombre(char* mensaje, char* nombre)
 	}
 
 	strcpy(nombre, nombreAux);
+
+	return validar;
 }
 
-void PedirPosicion(char* mensaje, char* posicion)
+int PedirPosicion(char* mensaje, char* posicion)
 {
 	char posicionAux[50];
 	int validar;
@@ -72,8 +81,7 @@ void PedirPosicion(char* mensaje, char* posicion)
 	{
 		posicionAux[i] = tolower(posicionAux[i]);
 	}
-
-	while(validar == 0 || (strcmp(posicionAux, "")==0 && (strcmp(posicionAux, "delantero")!=0 &&
+	while(validar == 0 || (strcmp(posicionAux, "")==0 || (strcmp(posicionAux, "delantero")!=0 &&
 														strcmp(posicionAux, "mediocampista")!=0 &&
 														strcmp(posicionAux, "defensor")!=0 &&
 														strcmp(posicionAux, "arquero")!=0)))
@@ -87,6 +95,8 @@ void PedirPosicion(char* mensaje, char* posicion)
 
 	posicionAux[0] = toupper(posicionAux[0]);
 	strcpy(posicion, posicionAux);
+
+	return validar;
 }
 
 short PedirNumeroCamiseta(char* mensaje)
@@ -208,7 +218,7 @@ int CargarListaJugadores(eJugador listaJugadores[], int sizeJugadores, eConfeder
 	return index;
 }
 
-int EliminarJugador(eJugador listaJugadores[], int sizeJugadores)
+int EliminarJugador(eJugador listaJugadores[], int sizeJugadores, eConfederacion listaConfederaciones[], int sizeConfederaciones)
 {
 	int validar1;
 	int validar2;
@@ -218,7 +228,7 @@ int EliminarJugador(eJugador listaJugadores[], int sizeJugadores)
 	char preguntaAux[10];
 	int pregunta;
 
-	MostrarListaJugadores(listaJugadores, sizeJugadores);
+	MostrarListaJugadores(listaJugadores, sizeJugadores, listaConfederaciones, sizeConfederaciones);
 
 	validar1 = getStringNumeros("Ingrese el ID del jugador a eliminar: ", idAEliminarAux);
 	idAEliminar = atoi(idAEliminarAux);
@@ -235,7 +245,7 @@ int EliminarJugador(eJugador listaJugadores[], int sizeJugadores)
 			printf("============================================================================================================================\n"
 					"| ID |           NOMBRE             |     POSICION     | N° CAMISETA |      SUELDO      | CONFEDERACION | AÑOS DE CONTRATO |\n"
 					"----------------------------------------------------------------------------------------------------------------------------\n");
-			MostrarUnJugador(listaJugadores[i]);
+			MostrarUnJugador(listaJugadores[i], listaConfederaciones, sizeConfederaciones);
 
 			printf("============================================================================================================================\n");
 
@@ -257,16 +267,352 @@ int EliminarJugador(eJugador listaJugadores[], int sizeJugadores)
 			{
 				listaJugadores[i].isEmpty = LIBRE;
 				retorno = 1;
+				break;
 			}
 			else
 			{
 				printf("\nSe ha cancelado la baja del jugador \n");
+				break;
 			}
 		}
 	}
 
 	return retorno;
 }
+
+int MenuDeModificacion()
+{
+	int retorno;
+
+	printf("\n----------------------------------------\n"
+			"            Modificar Jugador\n"
+			"1. Nombre\n"
+			"2. Posición\n"
+			"3. Numero de camiseta\n"
+			"4. Confederación\n"
+			"5. Salario\n"
+			"6. Años de contrato\n"
+			"----------------------------------------\n");
+
+	retorno = ElegirOpcion(6, 1);
+
+	return retorno;
+}
+
+int ModificarJugador(eJugador listaJugadores[], int sizeJugadores, eConfederacion listaConfederaciones[], int sizeConfederaciones)
+{
+	int retorno = 0;
+	int validar;
+	int opcionElegida;
+
+	char idAux[20];
+	int idAModificar;
+
+	short numeroCamisetaAux;
+	int confederacionAux;
+	float salarioAux;
+	short aniosContratoAux;
+
+	MostrarListaJugadores(listaJugadores, sizeJugadores, listaConfederaciones, sizeConfederaciones);
+
+	validar = getStringNumeros("Ingrese el ID del jugador a modificar: ", idAux);
+	idAModificar = atoi(idAux);
+	while(validar == 0)
+	{
+		validar = getStringNumeros("ERROR, Ingrese el ID del jugador a modificar: ", idAux);
+		idAModificar = atoi(idAux);
+	}
+
+	opcionElegida = MenuDeModificacion();
+
+	for(int i=0; i<sizeJugadores; i++)
+	{
+		if(idAModificar == listaJugadores[i].id)
+		{
+			switch(opcionElegida)
+			{
+				case 1:
+					printf("< Modificar Nombre >\n");
+					retorno = PedirNombre("Ingrese el nuevo nombre del jugador: ", listaJugadores[i].nombre);
+				break;
+				case 2:
+					printf("< Modificar Posición >\n");
+					retorno = PedirPosicion("Ingrese la nueva posición del jugador: ", listaJugadores[i].posicion);
+				break;
+				case 3:
+					printf("< Modificar Numero de Camiseta >\n");
+					numeroCamisetaAux = PedirNumeroCamiseta("Ingrese el nuevo numero de camiseta del jugador: ");
+					if(numeroCamisetaAux != 0)
+					{
+						listaJugadores[i].numeroCamiseta = numeroCamisetaAux;
+						retorno = numeroCamisetaAux;
+					}
+				break;
+				case 4:
+					printf("< Modificar Confederación >\n");
+					confederacionAux = PedirIdConfederacion("Ingrese la nueva confederacion del jugador: ", listaConfederaciones, sizeConfederaciones);
+					if(confederacionAux != 0)
+					{
+						listaJugadores[i].idConfederacion = confederacionAux;
+						retorno = confederacionAux;
+					}
+				break;
+				case 5:
+					printf("< Modificar Salario >\n");
+					salarioAux = PedirSalario("Ingrese el nuevo salario del jugador: ");
+					if(salarioAux != 0)
+					{
+						listaJugadores[i].salario = salarioAux;
+						retorno = salarioAux;
+					}
+				break;
+				case 6:
+					printf("< Modificar Años de Contrato >\n");
+					aniosContratoAux = PedirAniosContrato("Ingrese la nueva cantidad de años de contrato del jugador: ");
+					if(aniosContratoAux != 0)
+					{
+						listaJugadores[i].aniosContrato = aniosContratoAux;
+						retorno = aniosContratoAux;
+					};
+				break;
+			}
+		}
+	}
+
+	return retorno;
+}
+
+
+void OrdenarJugadoresAlfabeticamente(eJugador listaJugadores[], int sizeJugadores, eConfederacion listaConfederaciones[], int sizeConfederaciones)
+{
+
+	eJugador jugadorAux;
+	eConfederacion aux1;
+	eConfederacion aux2;
+
+	for(int i=0; i<sizeJugadores; i++)
+	{
+		for(int j=i+1; j<sizeJugadores; j++)
+		{
+			aux1 = BuscarConfederacion(listaJugadores[i], listaConfederaciones, sizeConfederaciones);
+			aux2 = BuscarConfederacion(listaJugadores[j], listaConfederaciones, sizeConfederaciones);
+
+			if(strcmp(aux1.nombre, aux2.nombre)>0)
+			{
+				jugadorAux = listaJugadores[i];
+				listaJugadores[i] = listaJugadores[j];
+				listaJugadores[j] = jugadorAux;
+			}
+			else
+			{
+				if(strcmp(aux1.nombre, aux2.nombre)==0)
+				{
+					if(strcmp(listaJugadores[i].nombre, listaJugadores[j].nombre))
+					{
+						jugadorAux = listaJugadores[i];
+						listaJugadores[i] = listaJugadores[j];
+						listaJugadores[j] = jugadorAux;
+					}
+				}
+			}
+		}
+	}
+
+	MostrarListaJugadores(listaJugadores, sizeJugadores, listaConfederaciones, sizeConfederaciones);
+}
+
+eConfederacion BuscarConfederacion(eJugador jugador, eConfederacion listaConfederaciones[], int sizeConfederaciones)
+{
+	eConfederacion confederacion;
+
+	for(int i = 0; i < sizeConfederaciones; i++)
+	{
+		if(listaConfederaciones[i].id == jugador.idConfederacion)
+		{
+			confederacion = listaConfederaciones[i];
+			break;
+		}
+	}
+
+	return confederacion;
+}
+
+void ListarConfederacionesConSusJugadores(eJugador listaJugadores[], int sizeJugadores, eConfederacion listaConfederaciones[], int sizeConfederaciones)
+{
+	int flag;
+
+	for(int i=0; i<sizeConfederaciones; i++)
+	{
+		flag = 0;
+		printf("===== %s =====\n", listaConfederaciones[i].nombre);
+
+		for(int j=0; j<sizeJugadores; j++)
+		{
+			if(listaJugadores[j].idConfederacion == listaConfederaciones[i].id)
+			{
+				MostrarUnJugador(listaJugadores[j], listaConfederaciones, sizeConfederaciones);
+				flag = 1;
+			}
+		}
+
+		if(flag == 0)
+		{
+			printf("< No se encontraron jugadores de esta confederacion >\n");
+		}
+	}
+}
+
+void CalcularTotalYPromedioDeSalarios(eJugador listaJugadores[], int sizeJugadores, eConfederacion listaConfederaciones[], int sizeConfederaciones)
+{
+	float promedio;
+	float totalSalarios = 0;
+	int contador = 0;
+
+	for(int i=0;i<sizeJugadores; i++)
+	{
+		if(listaJugadores[i].isEmpty == OCUPADO)
+		{
+			totalSalarios += listaJugadores[i].salario;
+			contador++;
+		}
+	}
+
+	promedio = totalSalarios / contador;
+
+	printf("EL PROMEDIO DE SALARIOS ES: %.2f\n"
+			"LOS JUGADORES QUE TIENEN UN SALARIO MAYOR AL PROMEDIO SON: \n", promedio);
+
+	printf("============================================================================================================================\n"
+				"| ID |           NOMBRE             |     POSICION     | N° CAMISETA |      SUELDO      | CONFEDERACION | AÑOS DE CONTRATO |\n"
+				"----------------------------------------------------------------------------------------------------------------------------\n");
+
+	for(int i=0;i<sizeJugadores; i++)
+	{
+		if(listaJugadores[i].isEmpty == OCUPADO && listaJugadores[i].salario > promedio)
+		{
+			MostrarUnJugador(listaJugadores[i], listaConfederaciones, sizeConfederaciones);
+		}
+	}
+
+	printf("============================================================================================================================\n");
+}
+
+void InformarConfederacionConMasAniosDeContrato(eJugador listaJugadores[], int sizeJugadores, eConfederacion listaConfederaciones[], int sizeConfederaciones)
+{
+	eConfederacion confMaxAnios;
+	int contadorAnios;
+	int maxAnios = 0;
+
+	for(int i=0; i<sizeConfederaciones; i++)
+	{
+		contadorAnios = 0;
+
+		for(int j=0; j<sizeJugadores; j++)
+		{
+			if(listaJugadores[j].isEmpty == OCUPADO && listaJugadores[j].idConfederacion == listaConfederaciones[i].id)
+			{
+				contadorAnios += listaJugadores[j].aniosContrato;
+			}
+		}
+
+		if(contadorAnios > maxAnios)
+		{
+			maxAnios = contadorAnios;
+			confMaxAnios = listaConfederaciones[i];
+		}
+	}
+
+	printf("La confederacion con mayor cantidad de años de contrato es: \n");
+
+	printf("=====================================================================\n"
+			"| ID   |  NOMBRE   |         REGION                |  AÑO CREACION  |\n"
+			"---------------------------------------------------------------------\n");
+		MostrarUnaConfederacion(confMaxAnios);
+	printf("=====================================================================\n");
+}
+
+void InformarProcentajeDeJugadoresPorConfederacion(eJugador listaJugadores[], int sizeJugadores, eConfederacion listaConfederaciones[], int sizeConfederaciones)
+{
+	float porcentaje;
+	int jugadoresTotales = 0;
+	float jugadoresPorConf;
+
+	for(int i=0; i<sizeJugadores; i++)
+	{
+		if(listaJugadores[i].isEmpty == OCUPADO)
+		{
+			jugadoresTotales++;
+		}
+	}
+
+	for(int i=0; i<sizeConfederaciones; i++)
+	{
+		jugadoresPorConf = 0;
+
+		printf("=== %s ===\n", listaConfederaciones[i].nombre);
+
+		for(int j=0; j<sizeJugadores; j++)
+		{
+			if(listaJugadores[j].isEmpty == OCUPADO && listaJugadores[j].idConfederacion == listaConfederaciones[i].id)
+			{
+				jugadoresPorConf++;
+			}
+		}
+
+		porcentaje = (jugadoresPorConf / jugadoresTotales)*100;
+		printf("- Porcentaje: %.2f\n", porcentaje);
+	}
+}
+
+void InformarRegionConMasJugadores(eJugador listaJugadores[], int sizeJugadores, eConfederacion listaConfederaciones[], int sizeConfederaciones)
+{
+	int contador;
+	int mayor = 0;
+	eConfederacion aux;
+
+	for(int i=0; i<sizeConfederaciones; i++)
+	{
+		contador = 0;
+
+		for(int j=0; j<sizeJugadores; j++)
+		{
+			if(listaJugadores[j].isEmpty == OCUPADO && listaJugadores[j].idConfederacion == listaConfederaciones[i].id)
+			{
+				contador++;
+			}
+		}
+
+		if(contador > mayor)
+		{
+			mayor = contador;
+			aux = listaConfederaciones[i];
+		}
+	}
+
+	printf("=== La region con mas jugadores es: %s ===\n"
+			" Sus jugadores son ->\n", aux.nombre);
+
+	printf("============================================================================================================================\n"
+			"| ID |           NOMBRE             |     POSICION     | N° CAMISETA |      SUELDO      | CONFEDERACION | AÑOS DE CONTRATO |\n"
+			"----------------------------------------------------------------------------------------------------------------------------\n");
+
+	for(int i=0; i<sizeJugadores; i++)
+	{
+		if(listaJugadores[i].idConfederacion == aux.id)
+		{
+			MostrarUnJugador(listaJugadores[i], listaConfederaciones, sizeConfederaciones);
+		}
+	}
+
+	printf("============================================================================================================================\n");
+
+
+
+}
+
+
+
+
 
 
 

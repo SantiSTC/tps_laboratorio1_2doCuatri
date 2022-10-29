@@ -8,9 +8,10 @@
 #ifndef MENU_H_
 #define MENU_H_
 
-#include "inputs.h"
+#include "utn.h"
 
 void MenuPrincipal();
-int ElegirOpcion();
+int ElegirOpcion(int max, int min);
+void MenuInformes();
 
 #endif /* MENU_H_ */
