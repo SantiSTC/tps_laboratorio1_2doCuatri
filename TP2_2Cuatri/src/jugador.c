@@ -479,8 +479,9 @@ void CalcularTotalYPromedioDeSalarios(eJugador listaJugadores[], int sizeJugador
 
 	promedio = totalSalarios / contador;
 
-	printf("EL PROMEDIO DE SALARIOS ES: %.2f\n"
-			"LOS JUGADORES QUE TIENEN UN SALARIO MAYOR AL PROMEDIO SON: \n", promedio);
+	printf("EL SALARIO TOTAL ES: %.2f\n"
+			"EL PROMEDIO DE SALARIOS ES: %.2f\n"
+			"LOS JUGADORES QUE TIENEN UN SALARIO MAYOR AL PROMEDIO SON: \n", totalSalarios, promedio);
 
 	printf("============================================================================================================================\n"
 				"| ID |           NOMBRE             |     POSICION     | N° CAMISETA |      SUELDO      | CONFEDERACION | AÑOS DE CONTRATO |\n"
