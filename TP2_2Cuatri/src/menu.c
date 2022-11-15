@@ -48,3 +48,19 @@ void MenuInformes()
 			"6. Region con mas jugadores\n"
 			"====================================================================================\n");
 }
+
+int MenuDeModificacionConfederaciones()
+{
+	int retorno;
+
+	printf("\n----------------------------------------\n"
+			"          Modificar Confederacion\n"
+			"1. Nombre\n"
+			"2. Region\n"
+			"3. Año de creacion\n"
+			"----------------------------------------\n");
+
+	retorno = ElegirOpcion(3, 1);
+
+	return retorno;
+}

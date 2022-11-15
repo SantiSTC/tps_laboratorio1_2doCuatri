@@ -22,4 +22,7 @@ int ElegirOpcion(int max, int min);
 /// @brief Muestra el menu de informes.
 void MenuInformes();
 
+/// @brief Muestra el menu de modificacion de confederaciones.
+/// @return Retorna la opcion elegida por el usuario.
+int MenuDeModificacionConfederaciones();
 #endif /* MENU_H_ */

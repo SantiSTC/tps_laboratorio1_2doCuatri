@@ -47,7 +47,7 @@ void InicializarJugador(eJugador listaJugadores[], int sizeJugadores);
 int ObtenerID();
 
 /// @brief Pide el ingreso de un nombre.
-/// @param mensaje Recibe el mensaje a mostrar cuando se pida el dato.
+/// @param mensajeRecibe el mensaje a mostrar cuando se pida el dato.
 /// @param nombre Recibe una referencia a la variable donde guardar el dato que se pide.
 /// @return Retorna 1 se se pidio correctamente el dato, 0 si no pudo hacerlo.
 int PedirNombre(char* mensaje, char* nombre);

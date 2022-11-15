@@ -33,7 +33,7 @@ eConfederacion CargarConfederacion()
 	eConfederacion unaConfederacion;
 
 	unaConfederacion.id = PedirId("Ingrese un ID para la confederacion: ");
-	PedirNombre("Ingrese el nombre de la confederacion: ", unaConfederacion.nombre);
+	PedirNombreConfederacion("Ingrese el nombre de la confederacion: ", unaConfederacion.nombre);
 	PedirRegion("Ingrese la region de la confederacion: ", unaConfederacion.region);
 	unaConfederacion.anioCreacion = PedirAnioCreacion("Ingrese el año de creacion de la confederacion: ");
 
@@ -46,7 +46,7 @@ int CargarListaConfederaciones(eConfederacion listaConfederaciones[], int sizeCo
 {
 	int index;
 
-	index = BuscarEspacio(listaConfederaciones, sizeConfederaciones);
+	index = BuscarEspacioConfederaciones(listaConfederaciones, sizeConfederaciones);
 
 	if(index > -1)
 	{
@@ -119,7 +119,7 @@ int ModificarConfederacion(eConfederacion listaConfederaciones[], int sizeConfed
 
 	MostrarConfederaciones(listaConfederaciones, sizeConfederaciones);
 
-	idAModificar = PedirIdConfederacion("Ingrese el ID de la confederacion a modificar: ", listaConfederaciones, sizeConfederaciones);
+	idAModificar = PedirIdMostrandoLista("Ingrese el ID de la confederacion a modificar: ", listaConfederaciones, sizeConfederaciones);
 
 	for(int i=0; i<sizeConfederaciones; i++)
 	{
@@ -132,7 +132,7 @@ int ModificarConfederacion(eConfederacion listaConfederaciones[], int sizeConfed
 				case 1:
 					printf("< Modificar Nombre >\n");
 
-					retorno = PedirNombre("Ingrese el nuevo nombre de la confederacion: ", listaConfederaciones[i].nombre);
+					retorno = PedirNombreConfederacion("Ingrese el nuevo nombre de la confederacion: ", listaConfederaciones[i].nombre);
 				break;
 				case 2:
 					printf("< Modificar Region >\n");
@@ -152,6 +152,41 @@ int ModificarConfederacion(eConfederacion listaConfederaciones[], int sizeConfed
 	return retorno;
 }
 
+
+int PedirNombreConfederacion(char* mensaje, char* nombre)
+{
+	char nombreAux[50];
+	int validar;
+
+	validar = getStringLetras(mensaje, nombreAux);
+	while(validar == 0 || (strcmp(nombreAux, "")==0))
+	{
+		validar = getStringLetras(mensaje, nombreAux);
+	}
+
+	strcpy(nombre, nombreAux);
+
+	return validar;
+}
+
+int PedirIdMostrandoLista(char* mensaje, eConfederacion listaConfederaciones[], int sizeConfederaciones)
+{
+	int validar;
+	char idConfederacionAux[50];
+	int idConfederacion;
+
+	MostrarConfederaciones(listaConfederaciones, sizeConfederaciones);
+
+	validar = getStringNumeros(mensaje, idConfederacionAux);
+	idConfederacion = atoi(idConfederacionAux);
+	while(validar == 0 || idConfederacion < 100 || idConfederacion > 105 || strcmp(idConfederacionAux, "")==0)
+	{
+		validar = getStringNumeros(mensaje, idConfederacionAux);
+		idConfederacion = atoi(idConfederacionAux);
+	}
+
+	return idConfederacion;
+}
 
 int PedirId(char* mensaje)
 {
@@ -203,22 +238,21 @@ int PedirAnioCreacion(char* mensaje)
 	return anioCreacion;
 }
 
-int MenuDeModificacionConfederaciones()
+int BuscarEspacioConfederaciones(eConfederacion listaConfederaciones[], int sizeJugadores)
 {
-	int retorno;
+	int index = -1;
 
-	printf("\n----------------------------------------\n"
-			"          Modificar Confederacion\n"
-			"1. Nombre\n"
-			"2. Region\n"
-			"3. Año de creacion\n"
-			"----------------------------------------\n");
+	for(int i = 0; i < sizeJugadores; i++)
+	{
+		if(listaConfederaciones[i].isEmpty == LIBRE)
+	    {
+			index = i;
+	        break;
+	    }
+	}
 
-	retorno = ElegirOpcion(3, 1);
-
-	return retorno;
+	return index;
 }
-
 
 
 
