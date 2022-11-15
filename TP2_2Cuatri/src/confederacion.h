@@ -15,6 +15,7 @@ typedef struct{
 	char nombre[50];
 	char region[50];
 	int anioCreacion;
+	int isEmpty;
 }eConfederacion;
 
 /// @brief Muestra los datos de una confederacion.
@@ -25,5 +26,12 @@ void MostrarUnaConfederacion(eConfederacion unaConfederacion);
 /// @param listaConfederaciones Recibe la lista de confederaciones.
 /// @param sizeConfederaciones Recibe el tamaño de la lista de confederaciones.
 void MostrarConfederaciones(eConfederacion listaConfederaciones[], int sizeConfederaciones);
+
+int EliminarConfederacion(eConfederacion listaConfederaciones[], int sizeConfederaciones);
+int ModificarConfederacion(eConfederacion listaConfederaciones[], int sizeConfederaciones);
+int PedirId(char* mensaje);
+int PedirRegion(char* mensaje, char* region);
+int PedirAnioCreacion(char* mensaje);
+int MenuDeModificacionConfederaciones();
 
 #endif /* CONFEDERACION_H_ */

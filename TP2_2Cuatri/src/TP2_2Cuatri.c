@@ -17,15 +17,6 @@
 #define T_C 6
 #define T_J 3000
 
-eConfederacion listaConfederaciones[T_C] = {{100, "CONMEBOL", "SUDAMERICA", 1916},
-										{101, "UEFA", "EUROPA", 1954},
-										{102, "AFC", "ASIA", 1954},
-										{103, "CAF", "AFRICA", 1957},
-										{104, "CONCACAF", "NORTE Y CENTRO AMERICA", 1961},
-										{105, "OFC", "OCEANIA", 1966}};
-
-eJugador listaJugadores[T_J];
-
 int main(void) {
 	setbuf(stdout, NULL);
 
@@ -33,6 +24,15 @@ int main(void) {
 	int opcionInformes;
 	int retorno;
 	int cantidadAltas = 0;
+
+	eConfederacion listaConfederaciones[T_C] = {{100, "CONMEBOL", "SUDAMERICA", 1916, OCUPADO},
+											{101, "UEFA", "EUROPA", 1954, OCUPADO},
+											{102, "AFC", "ASIA", 1954, OCUPADO},
+											{103, "CAF", "AFRICA", 1957, OCUPADO},
+											{104, "CONCACAF", "NORTE Y CENTRO AMERICA", 1961, OCUPADO},
+											{105, "OFC", "OCEANIA", 1966, OCUPADO}};
+
+	eJugador listaJugadores[T_J];
 
 	InicializarJugador(listaJugadores, T_J);
 
