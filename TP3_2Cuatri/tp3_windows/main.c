@@ -12,6 +12,8 @@ int main()
     int option;
     int retorno;
     int flagCargaArchivos = 0;
+    int flagGuardado = 0;
+    int opcionSalida;
 
     LinkedList* listaJugadores = ll_newLinkedList();
     LinkedList* listaSelecciones = ll_newLinkedList();
@@ -122,13 +124,30 @@ int main()
             case 8:
             	if(flagCargaArchivos == 1)
             	{
-            		MostrarJugadoresNoConvocados(listaJugadores, listaSelecciones);
+            		retorno = controller_guardarJugadoresModoBinario("jugadores.bin", listaJugadores);
+                	if(retorno)
+                	{
+                		printf("\n=== Se ha guardado correctamente ===\n");
+                		flagGuardado = 1;
+                	}
+                	else
+                	{
+                		printf("\n=== No se han podido guardar los datos ===\n");
+                	}
             	}
             break;
             case 9:
             	if(flagCargaArchivos == 1)
             	{
-
+            		retorno = controller_cargarJugadoresDesdeBinario("jugadores.bin", listaJugadores);
+                	if(retorno)
+                	{
+                		printf("\n=== Se ha cargado correctamente ===\n");
+                	}
+                	else
+                	{
+                		printf("\n=== No se ha podido cargar la lista ===\n");
+                	}
             	}
             break;
             case 10:
@@ -138,6 +157,7 @@ int main()
                 	if(retorno)
                 	{
                 		printf("\n=== Se ha guardado correctamente ===\n");
+                		flagGuardado = 1;
                 	}
                 	else
                 	{
@@ -145,9 +165,34 @@ int main()
                 	}
             	}
             break;
+            case 11:
+            	if(flagGuardado == 1)
+            	{
+            		printf("\nFinalizando programa...\n");
+            		option = 12;
+            	}
+            	else
+            	{
+            		printf("¿Esta seguro que desea salir sin guardar?\n"
+            				"1. Si, salir sin guardar\n"
+            				"2. No, deseo guardar antes de salir\n");
+            		opcionSalida = ElegirOpcion(2, 1);
+
+            		if(opcionSalida == 1)
+            		{
+                		printf("\nFinalizando programa...\n");
+                		option = 12;
+            		}
+            		else
+            		{
+            			break;
+            		}
+
+            	}
+            break;
         }
 
-    }while(option != 11);
+    }while(option != 12);
 
     printf("< PROGRAMA FINALIZADO >\n");
 

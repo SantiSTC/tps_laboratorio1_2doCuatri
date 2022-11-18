@@ -60,7 +60,32 @@ int parser_JugadorFromText(FILE* pFile , LinkedList* pArrayListJugador)
  */
 int parser_JugadorFromBinary(FILE* pFile , LinkedList* pArrayListJugador)
 {
-    return 1;
+	int retorno = 0;
+	Jugador* unJugador = NULL;
+
+	if(pFile != NULL && pArrayListJugador != NULL)
+	{
+		do
+		{
+			unJugador = jug_new();
+
+			if(unJugador != NULL)
+			{
+				if(fread(unJugador, sizeof(Jugador), 1, pFile))
+				{
+					ll_add(pArrayListJugador, unJugador);
+					retorno = 1;
+				}
+				else
+				{
+					jug_delete(unJugador);
+				}
+			}
+		}while(!feof(pFile));
+	}
+
+
+    return retorno;
 }
 
 
@@ -144,6 +169,34 @@ int parser_saveTextJugadores(FILE* pFile , LinkedList* pArrayListJugadores)
 				}
 			}
 		}
+	}
+
+	return retorno;
+}
+int parser_saveJugadoresBinary(char* path , LinkedList* pArrayListJugadores)
+{
+	int retorno = 0;
+	FILE* pArchivo;
+	Jugador* unJugador = NULL;
+
+	pArchivo = fopen(path, "wb");
+
+	if(pArchivo != NULL && ll_len(pArrayListJugadores) > 0)
+	{
+		for(int i=0; i<ll_len(pArrayListJugadores); i++)
+		{
+			unJugador = (Jugador*) ll_get(pArrayListJugadores, i);
+
+			if(unJugador != NULL)
+			{
+				fwrite(unJugador, sizeof(Jugador), 1, pArchivo);
+				retorno = 1;
+			}
+		}
+	}
+	else
+	{
+		printf("\nERROR AL INTENTAR ABRIR EL ARCHIVO...\n");
 	}
 
 	return retorno;

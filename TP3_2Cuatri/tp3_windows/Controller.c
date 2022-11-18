@@ -30,7 +30,16 @@ int controller_cargarJugadoresDesdeTexto(char* path , LinkedList* pArrayListJuga
  */
 int controller_cargarJugadoresDesdeBinario(char* path , LinkedList* pArrayListJugador)
 {
-    return 1;
+	int retorno = 0;
+	FILE* pArchivo;
+
+	pArchivo = fopen(path, "rb");
+
+	retorno =  parser_JugadorFromBinary(pArchivo, pArrayListJugador);
+
+	fclose(pArchivo);
+
+    return retorno;
 }
 
 /** \brief Alta de jugadores
@@ -111,18 +120,6 @@ int controller_listarJugadores(LinkedList* pArrayListJugador, LinkedList* pArray
     return retorno;
 }
 
-/** \brief Ordenar jugadores
- *
- * \param path char*
- * \param pArrayListJugador LinkedList*
- * \return int
- *
- */
-int controller_ordenarJugadores(LinkedList* pArrayListJugador)
-{
-    return 1;
-}
-
 /** \brief Guarda los datos de los jugadores en el archivo jugadores.csv (modo texto).
  *
  * \param path char*
@@ -153,7 +150,20 @@ int controller_guardarJugadoresModoTexto(char* path , LinkedList* pArrayListJuga
  */
 int controller_guardarJugadoresModoBinario(char* path , LinkedList* pArrayListJugador)
 {
-    return 1;
+	int retorno = 0;
+	FILE* pArchivo;
+	Jugador* unJugador = NULL;
+
+	if(path != NULL && pArrayListJugador != NULL)
+	{
+		pArchivo = fopen(path, "wb");
+
+		retorno = parser_saveJugadoresBinary(pArchivo, pArrayListJugador);
+
+		fclose(pArchivo);
+	}
+
+    return retorno;
 }
 
 
@@ -179,19 +189,6 @@ int controller_cargarSeleccionesDesdeTexto(char* path , LinkedList* pArrayListSe
     return retorno;
 }
 
-/** \brief Modificar datos de empleado
- *
- * \param path char*
- * \param pArrayListSeleccion LinkedList*
- * \return int
- *
- */
-int controller_editarSeleccion(LinkedList* pArrayListSeleccion)
-{
-    return 1;
-}
-
-
 /** \brief Listar selecciones
  *
  * \param path char*
@@ -209,18 +206,6 @@ int controller_listarSelecciones(LinkedList* pArrayListSeleccion)
 	}
 
     return retorno;
-}
-
-/** \brief Ordenar selecciones
- *
- * \param path char*
- * \param pArrayListSeleccion LinkedList*
- * \return int
- *
- */
-int controller_ordenarSelecciones(LinkedList* pArrayListSeleccion)
-{
-    return 1;
 }
 
 /** \brief Guarda los datos de los selecciones en el archivo selecciones.csv (modo texto).
