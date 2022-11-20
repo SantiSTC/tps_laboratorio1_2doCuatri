@@ -42,6 +42,18 @@ int controller_cargarJugadoresDesdeBinario(char* path , LinkedList* pArrayListJu
     return retorno;
 }
 
+int controller_cargarArchivosDesdeBinario(char* pathJug , LinkedList* pArrayListJugador, char* pathSel, LinkedList* pArraySelecciones)
+{
+	int retorno = 0;
+
+	if(controller_cargarJugadoresDesdeBinario(pathJug, pArrayListJugador) && controller_cargarSeleccionesDesdeBinario(pathSel, pArraySelecciones))
+	{
+		retorno = 1;
+	}
+
+	return retorno;
+}
+
 /** \brief Alta de jugadores
  *
  * \param path char*
@@ -152,7 +164,6 @@ int controller_guardarJugadoresModoBinario(char* path , LinkedList* pArrayListJu
 {
 	int retorno = 0;
 	FILE* pArchivo;
-	Jugador* unJugador = NULL;
 
 	if(path != NULL && pArrayListJugador != NULL)
 	{
@@ -166,7 +177,34 @@ int controller_guardarJugadoresModoBinario(char* path , LinkedList* pArrayListJu
     return retorno;
 }
 
+int controller_guardarSeleccionesModoBinario(char* path , LinkedList* pArrayListSelecciones)
+{
+	int retorno = 0;
+	FILE* pArchivo;
 
+	if(path != NULL && pArrayListSelecciones != NULL)
+	{
+		pArchivo = fopen(path, "wb");
+
+		retorno = parser_saveSeleccionesBinary(pArchivo, pArrayListSelecciones);
+
+		fclose(pArchivo);
+	}
+
+    return retorno;
+}
+
+int controller_guardarArchivosModoBinario(char* pathJug , LinkedList* pArrayListJugador, char* pathSel, LinkedList* pArraySelecciones)
+{
+	int retorno = 0;
+
+	if(controller_guardarJugadoresModoBinario(pathJug, pArrayListJugador) && controller_guardarSeleccionesModoBinario(pathSel, pArraySelecciones))
+	{
+		retorno = 1;
+	}
+
+	return retorno;
+}
 
 /** \brief Carga los datos de los selecciones desde el archivo selecciones.csv (modo texto).
  *
@@ -183,6 +221,20 @@ int controller_cargarSeleccionesDesdeTexto(char* path , LinkedList* pArrayListSe
 	pArchivo = fopen(path, "r");
 
 	retorno = parser_SeleccionFromText(pArchivo, pArrayListSeleccion);
+
+	fclose(pArchivo);
+
+    return retorno;
+}
+
+int controller_cargarSeleccionesDesdeBinario(char* path , LinkedList* pArrayListSeleccion)
+{
+	int retorno = 0;
+	FILE* pArchivo;
+
+	pArchivo = fopen(path, "rb");
+
+	retorno = parser_SeleccionFromBinary(pArchivo, pArrayListSeleccion);
 
 	fclose(pArchivo);
 
@@ -206,18 +258,6 @@ int controller_listarSelecciones(LinkedList* pArrayListSeleccion)
 	}
 
     return retorno;
-}
-
-/** \brief Guarda los datos de los selecciones en el archivo selecciones.csv (modo texto).
- *
- * \param path char*
- * \param pArrayListSeleccion LinkedList*
- * \return int
- *
- */
-int controller_guardarSeleccionesModoTexto(char* path , LinkedList* pArrayListSeleccion)
-{
-    return 1;
 }
 
 int controller_cargarArchivosDesdeTexto(char* path , LinkedList* pArrayListJugadores, char* path2 , LinkedList* pArrayListSelecciones)
@@ -257,9 +297,29 @@ int controller_listarListados(LinkedList* pArrayListJugador, LinkedList* pArrayS
 
 int controller_ordenarYListar(LinkedList* pArrayListJugador, LinkedList* pArraySeleciones)
 {
-	int retorno;
+	int retorno = 0;
+	LinkedList* cloneJugadores = NULL;
+	LinkedList* cloneSelecciones = NULL;
 
-	retorno = OrdenarYListar(pArrayListJugador, pArraySeleciones);
+	if(pArrayListJugador != NULL && pArraySeleciones)
+	{
+		cloneJugadores = ll_clone(pArrayListJugador);
+		cloneSelecciones = ll_clone(pArraySeleciones);
+
+		if(cloneJugadores != NULL && cloneSelecciones != NULL)
+		{
+			retorno = OrdenarYListar(cloneJugadores, cloneSelecciones);
+		}
+	}
+
+	ll_clear(cloneJugadores);
+	ll_clear(cloneSelecciones);
+
+	if(ll_isEmpty(cloneJugadores) && ll_isEmpty(cloneSelecciones))
+	{
+		ll_deleteLinkedList(cloneJugadores);
+		ll_deleteLinkedList(cloneSelecciones);
+	}
 
 	return retorno;
 }

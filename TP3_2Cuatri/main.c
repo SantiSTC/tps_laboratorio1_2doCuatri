@@ -26,15 +26,22 @@ int main()
         switch(option)
         {
             case 1:
-            	retorno = controller_cargarArchivosDesdeTexto("jugadores.csv", listaJugadores, "selecciones.csv", listaSelecciones);
-            	if(retorno)
+            	if(flagCargaArchivos == 0)
             	{
-            		flagCargaArchivos = 1;
-            		printf("\n=== Se ha cargado la lista correctamente ===\n");
+                	retorno = controller_cargarArchivosDesdeTexto("jugadores.csv", listaJugadores, "selecciones.csv", listaSelecciones);
+                	if(retorno)
+                	{
+                		flagCargaArchivos = 1;
+                		printf("\n=== Se ha cargado la lista correctamente ===\n");
+                	}
+                	else
+                	{
+                		printf("\n=== No se ha podido cargar la lista ===\n");
+                	}
             	}
             	else
             	{
-            		printf("\n=== No se ha podido cargar la lista ===\n");
+            		printf("\nYA SE HA CARGADO EL ARCHIVO...\n");
             	}
             break;
             case 2:
@@ -99,11 +106,11 @@ int main()
                 	retorno = controller_convocarJugadores(listaJugadores, listaSelecciones);
                 	if(retorno != 0)
                 	{
-                		printf("\n=== Se ha convocado correctamente ===\n");
+                		printf("\n=== Ha funcionado correctamente ===\n");
                 	}
                 	else
                 	{
-                		printf("\n=== No se ha podido convocar ===\n");
+                		printf("\n=== No ha funcionado ===\n");
                 	}
             	}
             break;
@@ -124,7 +131,7 @@ int main()
             case 8:
             	if(flagCargaArchivos == 1)
             	{
-            		retorno = controller_guardarJugadoresModoBinario("jugadores.bin", listaJugadores);
+            		retorno = controller_guardarArchivosModoBinario("jugadores.bin", listaJugadores, "selecciones.bin", listaSelecciones);
                 	if(retorno)
                 	{
                 		printf("\n=== Se ha guardado correctamente ===\n");
@@ -137,17 +144,22 @@ int main()
             	}
             break;
             case 9:
-            	if(flagCargaArchivos == 1)
+            	if(flagCargaArchivos == 0)
             	{
-            		retorno = controller_cargarJugadoresDesdeBinario("jugadores.bin", listaJugadores);
+            		retorno = controller_cargarArchivosDesdeBinario("jugadores.bin", listaJugadores, "selecciones.bin", listaSelecciones);
                 	if(retorno)
                 	{
+                		flagCargaArchivos = 1;
                 		printf("\n=== Se ha cargado correctamente ===\n");
                 	}
                 	else
                 	{
                 		printf("\n=== No se ha podido cargar la lista ===\n");
                 	}
+            	}
+            	else
+            	{
+            		printf("\nYA SE HA CARGADO EL ARCHIVO...\n");
             	}
             break;
             case 10:

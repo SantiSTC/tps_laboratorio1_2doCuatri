@@ -68,6 +68,5 @@ int ModificarNacionalidad(Jugador* unJugador);
 int ModificarJugador(LinkedList* pArrayJugadores, LinkedList* pArraySeleciones);
 int BajaDeJugador(LinkedList* pArrayJugadores, LinkedList* pArraySeleciones);
 Jugador* BuscarJugador(LinkedList* pArrayJugador, int id);
-int MostrarJugadoresNoConvocados(LinkedList* pArrayJugadores, LinkedList* pArraySelecciones);
 
 #endif // jug_H_INCLUDED

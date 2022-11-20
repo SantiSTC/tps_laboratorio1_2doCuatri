@@ -23,3 +23,6 @@ int controller_cargarArchivosDesdeTexto(char* path , LinkedList* pArrayListJugad
 int controller_listarListados(LinkedList* pArrayListJugador, LinkedList* pArraySeleciones);
 int controller_convocarJugadores(LinkedList* pArrayListJugador, LinkedList* pArraySeleciones);
 int controller_ordenarYListar(LinkedList* pArrayListJugador, LinkedList* pArraySeleciones);
+int controller_cargarArchivosDesdeBinario(char* pathJug , LinkedList* pArrayListJugador, char* pathSel, LinkedList* pArraySelecciones);
+int controller_cargarSeleccionesDesdeBinario(char* path , LinkedList* pArrayListSeleccion);
+int controller_guardarArchivosModoBinario(char* pathJug , LinkedList* pArrayListJugador, char* pathSel, LinkedList* pArraySelecciones);

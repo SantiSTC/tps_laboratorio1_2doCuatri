@@ -32,5 +32,6 @@ int CompararNombres(void* jug1, void* jug2);
 int OrdenarSeleccionesPorConfederacion(LinkedList* pArraySelecciones);
 int CompararConfederaciones(void* selec1, void* selec2);
 int OrdenarJugadoresPorCriterio(LinkedList* pArrayJugadores, int pFunc(void* jug1, void* jug2));
+int MostrarJugadoresNoConvocados(LinkedList* pArrayJugadores, LinkedList* pArraySelecciones);
 
 #endif /* FUNCIONALIDADES_H_ */

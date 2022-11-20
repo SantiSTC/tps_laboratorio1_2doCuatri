@@ -139,6 +139,31 @@ int parser_SeleccionFromText(FILE* pFile , LinkedList* pArrayListSeleccion)
     return retorno;
 }
 
+int parser_SeleccionFromBinary(FILE* pFile , LinkedList* pArraySelecciones)
+{
+	int retorno = 0;
+	Seleccion* unaSeleccion = NULL;
+
+	if(pFile != NULL && pArraySelecciones != NULL)
+	{
+		do
+		{
+			unaSeleccion = selec_new();
+
+			if(unaSeleccion != NULL)
+			{
+				if(fread(unaSeleccion, sizeof(Seleccion), 1, pFile))
+				{
+					ll_add(pArraySelecciones, unaSeleccion);
+					retorno = 1;
+				}
+			}
+		}while(!feof(pFile));
+	}
+
+    return retorno;
+}
+
 //=======================================================================================================================================
 
 int parser_saveTextJugadores(FILE* pFile , LinkedList* pArrayListJugadores)
@@ -173,15 +198,13 @@ int parser_saveTextJugadores(FILE* pFile , LinkedList* pArrayListJugadores)
 
 	return retorno;
 }
-int parser_saveJugadoresBinary(char* path , LinkedList* pArrayListJugadores)
+
+int parser_saveJugadoresBinary(FILE* pFile, LinkedList* pArrayListJugadores)
 {
 	int retorno = 0;
-	FILE* pArchivo;
 	Jugador* unJugador = NULL;
 
-	pArchivo = fopen(path, "wb");
-
-	if(pArchivo != NULL && ll_len(pArrayListJugadores) > 0)
+	if(pFile != NULL && ll_len(pArrayListJugadores) > 0)
 	{
 		for(int i=0; i<ll_len(pArrayListJugadores); i++)
 		{
@@ -189,7 +212,7 @@ int parser_saveJugadoresBinary(char* path , LinkedList* pArrayListJugadores)
 
 			if(unJugador != NULL)
 			{
-				fwrite(unJugador, sizeof(Jugador), 1, pArchivo);
+				fwrite(unJugador, sizeof(Jugador), 1, pFile);
 				retorno = 1;
 			}
 		}
@@ -202,3 +225,28 @@ int parser_saveJugadoresBinary(char* path , LinkedList* pArrayListJugadores)
 	return retorno;
 }
 
+int parser_saveSeleccionesBinary(FILE* pFile, LinkedList* pArraySelecciones)
+{
+	int retorno = 0;
+	Seleccion* unaSeleccion = NULL;
+
+	if(pFile != NULL && ll_len(pArraySelecciones) > 0)
+	{
+		for(int i=0; i<ll_len(pArraySelecciones); i++)
+		{
+			unaSeleccion = (Seleccion*) ll_get(pArraySelecciones, i);
+
+			if(unaSeleccion != NULL)
+			{
+				fwrite(unaSeleccion, sizeof(Seleccion), 1, pFile);
+				retorno = 1;
+			}
+		}
+	}
+	else
+	{
+		printf("\nERROR AL INTENTAR ABRIR EL ARCHIVO...\n");
+	}
+
+	return retorno;
+}

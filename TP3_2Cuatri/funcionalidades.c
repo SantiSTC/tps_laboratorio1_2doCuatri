@@ -177,7 +177,7 @@ int OrdenarYListar(LinkedList* pArrayJugadores, LinkedList* pArraySelecciones)
 				retorno = OrdenarJugadoresPorCriterio(pArrayJugadores, CompararNacionalidades);
 			break;
 			case 2:
-				retorno= OrdenarSeleccionesPorConfederacion(pArraySelecciones);
+				retorno = OrdenarSeleccionesPorConfederacion(pArraySelecciones);
 			break;
 			case 3:
 				retorno = OrdenarJugadoresPorCriterio(pArrayJugadores, CompararEdades);
@@ -197,7 +197,6 @@ int OrdenarYListar(LinkedList* pArrayJugadores, LinkedList* pArraySelecciones)
 		}
 	}
 
-
 	return retorno;
 }
 
@@ -216,7 +215,7 @@ int OrdenarSeleccionesPorConfederacion(LinkedList* pArraySelecciones)
 
 	retorno = ll_sort(pArraySelecciones, CompararConfederaciones, 1);
 
-	return retorno;
+	return !retorno;
 }
 
 int CompararNacionalidades(void* jug1, void* jug2)
@@ -315,6 +314,29 @@ int CompararConfederaciones(void* selec1, void* selec2)
 	return retorno;
 }
 
+int MostrarJugadoresNoConvocados(LinkedList* pArrayJugadores, LinkedList* pArraySelecciones)
+{
+	int retorno = 0;
+	Jugador* unJugador;
+	int idSeleccion;
 
+	if(pArrayJugadores != NULL)
+	{
+		for(int i=0; i<ll_len(pArrayJugadores); i++)
+		{
+			unJugador = ll_get(pArrayJugadores, i);
+
+			if(unJugador != NULL && jug_getIdSeleccion(unJugador, &idSeleccion))
+			{
+				if(idSeleccion == 0)
+				{
+					retorno = MostrarUnJugador(unJugador, pArraySelecciones);
+				}
+			}
+		}
+	}
+
+	return retorno;
+}
 
 

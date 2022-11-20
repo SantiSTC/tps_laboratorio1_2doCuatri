@@ -599,33 +599,6 @@ Jugador* BuscarJugador(LinkedList* pArrayJugador, int id)
 	return unJugador;
 }
 
-int MostrarJugadoresNoConvocados(LinkedList* pArrayJugadores, LinkedList* pArraySelecciones)
-{
-	int retorno;
-	int idSeleccion;
-	Jugador* unJugador;
-
-	if(pArrayJugadores != NULL && pArraySelecciones != NULL)
-	{
-		for(int i=0; i<ll_len(pArrayJugadores); i++)
-		{
-			unJugador = ll_get(pArrayJugadores, i);
-
-			if(unJugador != NULL)
-			{
-				jug_getIdSeleccion(unJugador, &idSeleccion);
-
-				if(idSeleccion == 0)
-				{
-					retorno = MostrarUnJugador(unJugador, pArraySelecciones);
-				}
-			}
-		}
-	}
-
-	return retorno;
-}
-
 
 
 

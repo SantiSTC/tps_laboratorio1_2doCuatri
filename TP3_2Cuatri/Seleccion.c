@@ -75,6 +75,7 @@ int MostrarListaSelecciones(LinkedList* pArraySelecciones)
 		if(unaSeleccion != NULL)
 		{
 			MostrarUnaSeleccion(unaSeleccion);
+			retorno = 1;
 		}
 	}
 
@@ -226,7 +227,7 @@ int ConvocarJugadores(LinkedList* pArrayJugadores, LinkedList* pArraySelecciones
 		switch(opcion)
 		{
 			case 1:
-				if(MostrarListaJugadores(pArrayJugadores, pArraySelecciones) && PediridJugador("Ingrese el ID del jugador a convocar: ", &idJugador))
+				if(MostrarJugadoresNoConvocados(pArrayJugadores, pArraySelecciones) && PediridJugador("Ingrese el ID del jugador a convocar: ", &idJugador))
 				{
 					unJugador = BuscarJugador(pArrayJugadores, idJugador);
 
