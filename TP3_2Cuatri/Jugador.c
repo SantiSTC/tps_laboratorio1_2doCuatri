@@ -218,7 +218,7 @@ int jug_getIdSeleccion(Jugador* this,int* idSeleccion)
 
 //=================================================================================================================================================
 
-Jugador* AltaJugador()
+Jugador* AltaJugador(LinkedList* pArraySelecciones)
 {
 	Jugador* unJugador;
 	char id[30];
@@ -231,7 +231,7 @@ Jugador* AltaJugador()
 	if(PedirNombre("Ingrese el nombre de un jugador: ", nombreCompleto) &&
 		PedirEdad("Ingrese la edad del jugador: ", edad) &&
 		PedirPosicion("Ingrese la posicion del jugador: ", posicion) &&
-		PedirNacionalidad("Ingrese la nacionalidad del jugador: ", nacionalidad))
+		PedirNacionalidad("Ingrese la nacionalidad del jugador: ", nacionalidad, pArraySelecciones))
 	{
 		if(AveriguarUltimoID("UltimoID.txt", id), SumarID(id))
 		{
@@ -322,14 +322,26 @@ int PedirPosicion(char* mensaje, char* posicion)
 	int validar;
 
 	validar = getStringLetras(mensaje, posicionAux);
-	for(int i=0; i<13; i++)
+	for(int i=0; i<22; i++)
 	{
 		posicionAux[i] = tolower(posicionAux[i]);
 	}
-	while(validar == 0 || strcmp(posicionAux, "")==0)
+	while(validar == 0 || strcmp(posicionAux, "")==0 || (strcmp(posicionAux, "portero")!=0 &&
+														strcmp(posicionAux, "defensa central")!=0 &&
+														strcmp(posicionAux, "lateral izquierdo")!=0 &&
+														strcmp(posicionAux, "lateral derecho")!=0 &&
+														strcmp(posicionAux, "pivote")!=0 &&
+														strcmp(posicionAux, "mediocentro")!=0 &&
+														strcmp(posicionAux, "mediocentro ofensivo")!=0 &&
+														strcmp(posicionAux, "mediocentro defensivo")!=0 &&
+														strcmp(posicionAux, "extremo izquierdo")!=0 &&
+														strcmp(posicionAux, "extremo derecho")!=0 &&
+														strcmp(posicionAux, "mediapunta")!=0 &&
+														strcmp(posicionAux, "delantero centro")!=0))
+
 	{
 		validar = getStringLetras(mensaje, posicionAux);
-		for(int i=0; i<13; i++)
+		for(int i=0; i<22; i++)
 		{
 			posicionAux[i] = tolower(posicionAux[i]);
 		}
@@ -345,11 +357,14 @@ int PedirEdad(char* mensaje, char* edad)
 {
 	char edadAux[50];
 	int validar;
+	int edadValidar;
 
 	validar = getStringNumeros(mensaje, edadAux);
-	while(validar == 0 || (strcmp(edadAux, "")==0))
+	edadValidar = atoi(edadAux);
+	while(validar == 0 || (strcmp(edadAux, "")==0) || edadValidar < 16)
 	{
 		validar = getStringNumeros(mensaje, edadAux);
+		edadValidar = atoi(edadAux);
 	}
 
 	strcpy(edad, edadAux);
@@ -357,18 +372,33 @@ int PedirEdad(char* mensaje, char* edad)
 	return validar;
 }
 
-int PedirNacionalidad(char* mensaje, char* nacionalidad)
+int PedirNacionalidad(char* mensaje, char* nacionalidad, LinkedList* pArraySelecciones)
 {
-	char nacionalidadAux[50];
 	int validar;
+	int nacionalidadAux;
+	int idNacAux;
+	char nacionalidadStr[50];
+	Seleccion* SelecAux;
 
-	validar = getStringLetras(mensaje, nacionalidadAux);
-	while(validar == 0 || (strcmp(nacionalidadAux, "")==0))
+	MostrarListaSelecciones(pArraySelecciones);
+	validar = PedirIdSeleccion(mensaje, &nacionalidadAux);
+	while(validar == 0)
 	{
-		validar = getStringLetras(mensaje, nacionalidadAux);
+		validar = PedirIdSeleccion(mensaje, &nacionalidadAux);
 	}
 
-	strcpy(nacionalidad, nacionalidadAux);
+	for(int i=0; i<ll_len(pArraySelecciones); i++)
+	{
+		SelecAux = ll_get(pArraySelecciones, i);
+		selec_getId(SelecAux, &idNacAux);
+
+		if(nacionalidadAux == idNacAux)
+		{
+			selec_getPais(SelecAux, nacionalidadStr);
+			strcpy(nacionalidad, nacionalidadStr);
+			break;
+		}
+	}
 
 	return validar;
 }
@@ -424,7 +454,7 @@ int MostrarUnJugador(Jugador* unJugador, LinkedList* pArraySelecciones)
 			if(idSeleccion == 0)
 			{
 				strcpy(seleccion, "No Convocado");
-				printf("%d - %s - %d - %s - %s - %s\n", id, nombre, edad, posicion, nacionalidad, seleccion);
+				printf("|%-3d | %-24s | %-4d | %-20s | %-15s | %-15s |\n", id, nombre, edad, posicion, nacionalidad, seleccion);
 				retorno = 1;
 			}
 			else
@@ -432,7 +462,7 @@ int MostrarUnJugador(Jugador* unJugador, LinkedList* pArraySelecciones)
 				unaSeleccion = BuscarSeleccion(pArraySelecciones, idSeleccion);
 				selec_getPais(unaSeleccion, seleccion);
 
-				printf("%d - %s - %d - %s - %s - %s\n", id, nombre, edad, posicion, nacionalidad, seleccion);
+				printf("|%-3d | %-24s | %-4d | %-20s | %-15s | %-15s |\n", id, nombre, edad, posicion, nacionalidad, seleccion);
 				retorno = 1;
 			}
 		}
@@ -448,11 +478,17 @@ int MostrarListaJugadores(LinkedList* pArrayJugadores, LinkedList* pArraySelecci
 
 	if(pArrayJugadores != NULL)
 	{
+		printf("===================================================================================================\n"
+				"| ID | NOMBRE                   | EDAD | POSICION             | NACIONALIDAD    | SELECCION       |\n"
+				"===================================================================================================\n");
+
 		for(int i=0; i<ll_len(pArrayJugadores); i++)
 		{
 			unJugador = ll_get(pArrayJugadores, i);
 			retorno = MostrarUnJugador(unJugador, pArraySelecciones);
 		}
+
+		printf("===================================================================================================\n");
 	}
 
 	return retorno;

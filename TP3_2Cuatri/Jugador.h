@@ -51,7 +51,7 @@ int jug_getIdSeleccion(Jugador* this,int* idSeleccion);
 
 /// @brief Permite dar de alta un jugador.
 /// @return Retorna un puntero al jugador.
-Jugador* AltaJugador();
+Jugador* AltaJugador(LinkedList* pArraySelecciones);
 
 /// @brief Permite saber cual es el ultimo ID de los cargados a mano.
 /// @param path nombre del archivo donde esta guardado el ID.
@@ -92,7 +92,7 @@ int PedirEdad(char* mensaje, char* edad);
 /// @param mensaje Recibe el mensaje a mostrar a la hora de pedir el dato.
 /// @param nacionalidad Recibe un puntero a donde se guardara la nacionalidad.
 /// @return 1 si pudo hacerlo, 0 si no pudo.
-int PedirNacionalidad(char* mensaje, char* nacionalidad);
+int PedirNacionalidad(char* mensaje, char* nacionalidad, LinkedList* pArraySelecciones);
 
 /// @brief Pide el ingreso del id de Seleccion de un jugador.
 /// @param mensaje Recibe el mensaje a mostrar a la hora de pedir el dato.

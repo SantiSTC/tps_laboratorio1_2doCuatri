@@ -47,7 +47,7 @@ int main()
             case 2:
             	if(flagCargaArchivos == 1)
             	{
-                	retorno = controller_agregarJugador(listaJugadores);
+                	retorno = controller_agregarJugador(listaJugadores, listaSelecciones);
                 	if(!retorno)
                 	{
                 		printf("\n=== Se ha agregado correctamente al jugador ===\n");

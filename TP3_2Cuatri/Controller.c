@@ -61,11 +61,11 @@ int controller_cargarArchivosDesdeBinario(char* pathJug , LinkedList* pArrayList
  * \return int
  *
  */
-int controller_agregarJugador(LinkedList* pArrayListJugador)
+int controller_agregarJugador(LinkedList* pArrayListJugador, LinkedList* pArraySeleciones)
 {
 	int retorno = 0;
 
-	Jugador* unJugador = AltaJugador();
+	Jugador* unJugador = AltaJugador(pArraySeleciones);
 
 	if(pArrayListJugador != NULL && unJugador != NULL)
 	{

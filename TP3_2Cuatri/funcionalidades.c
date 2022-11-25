@@ -227,13 +227,13 @@ int CompararNacionalidades(void* jug1, void* jug2)
 	jug_getNacionalidad(jug1, nac1);
 	jug_getNacionalidad(jug2, nac2);
 
-	if(strcmp(nac1,nac2)>0)
+	if(strcmpi(nac1,nac2)>0)
 	{
 		retorno = 1;
 	}
 	else
 	{
-		if(strcmp(nac1,nac2)<0)
+		if(strcmpi(nac1,nac2)<0)
 		{
 			retorno = -1;
 		}

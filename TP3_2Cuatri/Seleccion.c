@@ -56,10 +56,11 @@ void MostrarUnaSeleccion(Seleccion* unaSeleccion)
 	int id;
 	char pais[50];
 	char confederacion[50];
+	int convocados;
 
-	if(selec_getId(unaSeleccion, &id), selec_getPais(unaSeleccion, pais), selec_getConfederacion(unaSeleccion, confederacion))
+	if(selec_getId(unaSeleccion, &id), selec_getPais(unaSeleccion, pais), selec_getConfederacion(unaSeleccion, confederacion), selec_getConvocados(unaSeleccion, &convocados))
 	{
-		printf("%d | %s | %s \n", id, pais, confederacion);
+		printf("|%-3d | %-17s | %-13s | %-13d |\n", id, pais, confederacion, convocados);
 	}
 }
 
@@ -67,6 +68,10 @@ int MostrarListaSelecciones(LinkedList* pArraySelecciones)
 {
 	int retorno = 0;
 	Seleccion* unaSeleccion = NULL;
+
+	printf("==========================================================\n"
+			"| ID | PAIS              | CONFEDERACION | N° CONVOCADOS |\n"
+			"==========================================================\n");
 
 	for(int i=0; i < ll_len(pArraySelecciones); i++)
 	{
@@ -78,6 +83,8 @@ int MostrarListaSelecciones(LinkedList* pArraySelecciones)
 			retorno = 1;
 		}
 	}
+
+	printf("==========================================================\n");
 
 	return retorno;
 }
