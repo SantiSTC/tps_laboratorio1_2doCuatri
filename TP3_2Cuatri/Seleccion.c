@@ -32,10 +32,10 @@ Seleccion* selec_newParametros(char* idStr,char* paisStr,char* confederacionStr,
 
 		if(unaSeleccion != NULL)
 		{
-			if(!selec_setId(unaSeleccion, id) || !selec_setConfederacion(unaSeleccion, confederacionStr) || !selec_setPais(unaSeleccion, paisStr) || !selec_setConvocados(unaSeleccion, convocados))
-			{
-				unaSeleccion = NULL;
-			}
+			unaSeleccion->id = id;
+			strcpy(unaSeleccion->pais, paisStr);
+			strcpy(unaSeleccion->confederacion, confederacionStr);
+			unaSeleccion->convocados = convocados;
 		}
 	}
 
@@ -135,48 +135,6 @@ int selec_getConvocados(Seleccion* this,int* convocados)
 	if(this != NULL)
 	{
 		*convocados = this->convocados;
-		retorno = 1;
-	}
-
-	return retorno;
-}
-
-
-
-int selec_setId(Seleccion* this,int id)
-{
-	int retorno = 0;
-
-	if(this != NULL)
-	{
-		this->id = id;
-		retorno = 1;
-	}
-
-	return retorno;
-}
-
-int selec_setPais(Seleccion* this,char* pais)
-{
-	int retorno = 0;
-
-	if(this != NULL)
-	{
-		strcpy(this->pais, pais);
-		retorno = 1;
-	}
-
-	return retorno;
-
-}
-
-int selec_setConfederacion(Seleccion* this,char* confederacion)
-{
-	int retorno = 0;
-
-	if(this != NULL)
-	{
-		strcpy(this->confederacion, confederacion);
 		retorno = 1;
 	}
 

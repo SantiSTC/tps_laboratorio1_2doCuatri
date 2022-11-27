@@ -26,10 +26,6 @@ int selec_getId(Seleccion* this,int* id);
 int selec_getPais(Seleccion* this,char* pais);
 int selec_getConfederacion(Seleccion* this,char* confederacion);
 
-int selec_setId(Seleccion* this,int id);
-int selec_setPais(Seleccion* this,char* pais);
-int selec_setConfederacion(Seleccion* this,char* confederacion);
-
 int selec_setConvocados(Seleccion* this,int convocados);
 int selec_getConvocados(Seleccion* this,int* convocados);
 
