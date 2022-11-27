@@ -184,6 +184,7 @@ int ConvocarJugadores(LinkedList* pArrayJugadores, LinkedList* pArraySelecciones
 	Seleccion* unaSeleccion;
 	int idSeleccionAux;
 	int flagConvocados;
+	int cantConvocados;
 
 	opcion = MenuConvocar();
 
@@ -205,8 +206,17 @@ int ConvocarJugadores(LinkedList* pArrayJugadores, LinkedList* pArraySelecciones
 
 						if(unaSeleccion != NULL)
 						{
-							selec_setConvocados(unaSeleccion, 1);
-							retorno = jug_setIdSeleccion(unJugador, idSeleccion);
+							selec_getConvocados(unaSeleccion, &cantConvocados);
+
+							if(cantConvocados < 22)
+							{
+								selec_setConvocados(unaSeleccion, 1);
+								retorno = jug_setIdSeleccion(unJugador, idSeleccion);
+							}
+							else
+							{
+								printf("Se ha alcanzado la cantidad maxima de convocaciones para esta seleccion...");
+							}
 						}
 					}
 				}

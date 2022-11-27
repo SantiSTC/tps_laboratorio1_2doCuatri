@@ -145,6 +145,10 @@ int MostrarJugadoresConvocados(LinkedList* pArrayJugadores, LinkedList* pArraySe
 
 	if(pArrayJugadores != NULL)
 	{
+		printf("===================================================================================================\n"
+				"| ID | NOMBRE                   | EDAD | POSICION             | NACIONALIDAD    | SELECCION       |\n"
+				"===================================================================================================\n");
+
 		for(int i=0; i<ll_len(pArrayJugadores); i++)
 		{
 			unJugador = ll_get(pArrayJugadores, i);
@@ -157,6 +161,8 @@ int MostrarJugadoresConvocados(LinkedList* pArrayJugadores, LinkedList* pArraySe
 				}
 			}
 		}
+
+		printf("===================================================================================================\n");
 	}
 
 	return retorno;
@@ -322,6 +328,10 @@ int MostrarJugadoresNoConvocados(LinkedList* pArrayJugadores, LinkedList* pArray
 
 	if(pArrayJugadores != NULL)
 	{
+		printf("===================================================================================================\n"
+				"| ID | NOMBRE                   | EDAD | POSICION             | NACIONALIDAD    | SELECCION       |\n"
+				"===================================================================================================\n");
+
 		for(int i=0; i<ll_len(pArrayJugadores); i++)
 		{
 			unJugador = ll_get(pArrayJugadores, i);
@@ -334,6 +344,8 @@ int MostrarJugadoresNoConvocados(LinkedList* pArrayJugadores, LinkedList* pArray
 				}
 			}
 		}
+
+		printf("===================================================================================================\n");
 	}
 
 	return retorno;
