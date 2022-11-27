@@ -57,6 +57,10 @@ int main()
                 		printf("\n=== No se ha podido agregar al jugador ===\n");
                 	}
             	}
+            	else
+            	{
+            		printf("Se debera cargar un archivo antes de ingresar a esta opcion...\n");
+            	}
             break;
             case 3:
             	if(flagCargaArchivos == 1)
@@ -70,6 +74,10 @@ int main()
                 	{
                 		printf("\n=== No se ha podido modificar ===\n");
                 	}
+            	}
+            	else
+            	{
+            		printf("Se debera cargar un archivo antes de ingresar a esta opcion...\n");
             	}
             break;
             case 4:
@@ -85,6 +93,10 @@ int main()
                 		printf("\n=== No se ha podido dar de baja ===\n");
                 	}
             	}
+            	else
+            	{
+            		printf("Se debera cargar un archivo antes de ingresar a esta opcion...\n");
+            	}
             break;
             case 5:
             	if(flagCargaArchivos == 1)
@@ -98,6 +110,10 @@ int main()
                 	{
                 		printf("\n=== No se ha podido listar ===\n");
                 	}
+            	}
+            	else
+            	{
+            		printf("Se debera cargar un archivo antes de ingresar a esta opcion...\n");
             	}
             break;
             case 6:
@@ -113,6 +129,10 @@ int main()
                 		printf("\n=== No ha funcionado ===\n");
                 	}
             	}
+            	else
+            	{
+            		printf("Se debera cargar un archivo antes de ingresar a esta opcion...\n");
+            	}
             break;
             case 7:
             	if(flagCargaArchivos == 1)
@@ -126,6 +146,10 @@ int main()
                 	{
                 		printf("\n=== No se ha podido listar ===\n");
                 	}
+            	}
+            	else
+            	{
+            		printf("Se debera cargar un archivo antes de ingresar a esta opcion...\n");
             	}
             break;
             case 8:
@@ -141,6 +165,10 @@ int main()
                 	{
                 		printf("\n=== No se han podido guardar los datos ===\n");
                 	}
+            	}
+            	else
+            	{
+            		printf("Se debera cargar un archivo antes de ingresar a esta opcion...\n");
             	}
             break;
             case 9:
@@ -175,6 +203,10 @@ int main()
                 	{
                 		printf("\n=== No se han podido guardar los datos ===\n");
                 	}
+            	}
+            	else
+            	{
+            		printf("Se debera cargar un archivo antes de ingresar a esta opcion...\n");
             	}
             break;
             case 11:
