@@ -41,6 +41,12 @@ int main(void){
 	listaClon = ll_newLinkedList();
 	listaFromTo = ll_newLinkedList();
 
+	printf("==============================================\n"
+			"Usado: ll_add\n"
+			"	ll_isEmpty\n"
+			"	ll_get\n"
+			"	ll_len\n\n");
+
 	for(int i=0; i<5; i++)
 	{
 		unPais = pais_newPar(listaPaises[i].id, listaPaises[i].nombre, listaPaises[i].continente, listaPaises[i].poblacion);
@@ -58,7 +64,11 @@ int main(void){
 		}
 	}
 
-	printf("==============================================\n");
+	printf("==============================================\n"
+			"Usado: ll_set\n"
+			"	ll_isEmpty\n"
+			"	ll_get\n"
+			"	ll_len\n\n");
 
 	pNodoNew = pais_newPar(5, "Japon", "Asia", 150000000);
 	ll_set(nuevaLista, ll_len(nuevaLista)-1, pNodoNew);
@@ -73,7 +83,11 @@ int main(void){
 		}
 	}
 
-	printf("==============================================\n");
+	printf("==============================================\n"
+			"Usado: ll_remove\n"
+			"	ll_isEmpty\n"
+			"	ll_get\n"
+			"	ll_len\n\n");
 
 	ll_remove(nuevaLista, ll_len(nuevaLista)-1);
 
@@ -87,7 +101,10 @@ int main(void){
 		}
 	}
 
-	printf("==============================================\n");
+	printf("==============================================\n"
+			"Usado: ll_indexOf\n"
+			"	ll_get\n"
+			"	ll_len\n\n");
 
 	for(int i=0; i<ll_len(nuevaLista); i++)
 	{
@@ -96,7 +113,11 @@ int main(void){
 		printf("%d\n", ll_indexOf(nuevaLista, pNodo));
 	}
 
-	printf("==============================================\n");
+	printf("==============================================\n"
+			"Usado: ll_push\n"
+			"	ll_isEmpty\n"
+			"	ll_get\n"
+			"	ll_len\n\n");
 
 	pNodoNew = pais_newPar(5, "Japon", "Asia", 150000000);
 	ll_push(nuevaLista, ll_len(nuevaLista), pNodoNew);
@@ -111,12 +132,15 @@ int main(void){
 		}
 	}
 
-	printf("==============================================\n");
+	printf("==============================================\n"
+			"Usado: ll_pop\n"
+			"	ll_len\n\n");
 
 	pNodoNew = ll_pop(nuevaLista, ll_len(nuevaLista)-1);
 	printf("%d - %s - %s - %d\n", pNodoNew->id, pNodoNew->nombre, pNodoNew->continente, pNodoNew->poblacion);
 
-	printf("==============================================\n");
+	printf("==============================================\n"
+			"Usado: ll_contains\n\n");
 
 	if(ll_contains(nuevaLista, pNodoNew))
 	{
@@ -127,7 +151,9 @@ int main(void){
 		printf("La lista no contiene este elemento\n");
 	}
 
-	printf("==============================================\n");
+	printf("==============================================\n"
+			"Usado: ll_clone\n"
+			"	ll_containsAll\n\n");
 
 	listaClon = ll_clone(nuevaLista);
 
@@ -140,7 +166,11 @@ int main(void){
 		printf("No todos los elementos de la lista esta contenidos en el clon\n");
 	}
 
-	printf("==============================================\n");
+	printf("==============================================\n"
+			"Usado: ll_subList\n"
+			"	ll_isEmpty\n"
+			"	ll_get\n"
+			"	ll_len\n\n");
 
 	listaFromTo = ll_subList(nuevaLista, 1, ll_len(nuevaLista)-1);
 
@@ -154,7 +184,11 @@ int main(void){
 		}
 	}
 
-	printf("==============================================\n");
+	printf("==============================================\n"
+			"Usado: ll_sort\n"
+			"	ll_isEmpty\n"
+			"	ll_get\n"
+			"	ll_len\n\n");
 
 	ll_sort(nuevaLista, FuncCriterio, 0);
 
@@ -167,7 +201,10 @@ int main(void){
 			printf("%d - %s - %s - %d\n", pNodo->id, pNodo->nombre, pNodo->continente, pNodo->poblacion);
 		}
 	}
-	printf("==============================================\n");
+	printf("==============================================\n"
+			"\n"
+			"Vacio las listas con ´ll_clear´\n"
+			"Elimino las listas con ´ll_deleteLinkedList´\n");
 
 	ll_clear(nuevaLista);
 	ll_clear(listaClon);
